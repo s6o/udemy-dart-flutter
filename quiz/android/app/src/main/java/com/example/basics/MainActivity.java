@@ -1,4 +1,4 @@
-package com.example.basics;
+package com.example.quiz;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
