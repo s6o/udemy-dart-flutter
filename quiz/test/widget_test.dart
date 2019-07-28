@@ -5,26 +5,30 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:basics/main.dart';
+import 'package:quiz/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Quiz question test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(QuizApp());
 
     // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('What is your favorite color?'), findsOneWidget);
+    expect(find.text('Black'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    await tester.tap(find.text('Black'));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('What is your favorite animal?'), findsOneWidget);
+    expect(find.text('Snake'), findsOneWidget);
+
+    await tester.tap(find.text('Snake'));
+    await tester.pump();
+
+    expect(find.text('You are so bad...'), findsOneWidget);
+    expect(find.text('Restart Quiz'), findsOneWidget);
   });
 }
