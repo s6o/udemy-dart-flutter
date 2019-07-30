@@ -53,10 +53,6 @@ class _HomePageState extends State<HomePage> {
       title: 'New Shoes',
       amount: Money(6999, Currency('EUR')),
     ),
-    Transaction(
-      title: 'Weekly Groceries',
-      amount: Money(10025, Currency('EUR')),
-    ),
   ];
 
   void _newTransaction(Transaction tx) {
