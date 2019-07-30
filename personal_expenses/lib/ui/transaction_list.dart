@@ -60,11 +60,7 @@ class _TxItemAmount extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: Text(
         tx.amountText,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-          color: Theme.of(context).accentColor,
-        ),
+        style: Theme.of(context).textTheme.subhead,
       ),
     );
   }
@@ -82,16 +78,11 @@ class _TxItemTitleTimestamp extends StatelessWidget {
       children: <Widget>[
         Text(
           tx.title,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.title,
         ),
         Text(
           tx.timestampText,
-          style: TextStyle(
-            color: Colors.grey,
-          ),
+          style: Theme.of(context).textTheme.subtitle,
         ),
       ],
     );

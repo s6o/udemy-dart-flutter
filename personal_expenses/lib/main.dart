@@ -14,6 +14,28 @@ class PersonalExpenseApp extends StatelessWidget {
       title: 'Personal Expenses',
       theme: ThemeData(
         primarySwatch: Colors.green,
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              title: TextStyle(
+                fontFamily: 'OpenSans',
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+              subhead: TextStyle(
+                fontFamily: 'OpenSans',
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.green,
+              ),
+            ),
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                title: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 20,
+                ),
+              ),
+        ),
       ),
       home: HomePage(),
     );
