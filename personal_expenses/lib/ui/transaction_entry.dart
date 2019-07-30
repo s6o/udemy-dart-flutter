@@ -5,12 +5,19 @@ import './../models/transaction.dart';
 
 typedef EntryHandler = void Function(Transaction);
 
-class TransactionEntry extends StatelessWidget {
-  final titleInput = TextEditingController();
-  final amountInput = TextEditingController();
+class TransactionEntry extends StatefulWidget {
   final EntryHandler entryHandler;
 
   TransactionEntry(this.entryHandler);
+
+  @override
+  _TransactionEntryState createState() => _TransactionEntryState();
+}
+
+class _TransactionEntryState extends State<TransactionEntry> {
+  final titleInput = TextEditingController();
+
+  final amountInput = TextEditingController();
 
   void _createTransaction() {
     String title = titleInput.text;
@@ -21,7 +28,7 @@ class TransactionEntry extends StatelessWidget {
         var parsedAmount = Money.fromString(amount, Currency('EUR'));
         if (parsedAmount.amount > 0) {
           var tx = Transaction(title: title, amount: parsedAmount);
-          this.entryHandler(tx);
+          this.widget.entryHandler(tx);
         }
       } catch (e) {
         print('Invalid amount: $amount | Exception: ${e.runtimeType}');
@@ -46,7 +53,6 @@ class TransactionEntry extends StatelessWidget {
               decoration: InputDecoration(labelText: 'Amount'),
               controller: amountInput,
               keyboardType: TextInputType.number,
-              onSubmitted: (_) => _createTransaction(),
             ),
             FlatButton(
               child: Text('Add Transaction'),
