@@ -54,11 +54,19 @@ class _TransactionEntryState extends State<TransactionEntry> {
               controller: amountInput,
               keyboardType: TextInputType.number,
             ),
-            FlatButton(
-              child: Text('Add Transaction'),
-              textColor: Colors.purple,
-              onPressed: () => _createTransaction(),
-            )
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                FlatButton(
+                  child: Text('Close'),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                RaisedButton(
+                  child: Text('Add Transaction'),
+                  onPressed: () => _createTransaction(),
+                )
+              ],
+            ),
           ],
         ),
       ),
