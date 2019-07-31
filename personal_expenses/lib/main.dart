@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'models/transaction.dart';
+import 'ui/chart.dart';
 import 'ui/transaction_entry.dart';
 import 'ui/transaction_list.dart';
 
@@ -20,6 +21,11 @@ class PersonalExpenseApp extends StatelessWidget {
                 fontFamily: 'OpenSans',
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
+              ),
+              subtitle: TextStyle(
+                fontFamily: 'Quicksand',
+                fontWeight: FontWeight.normal,
+                fontSize: 12,
               ),
               subhead: TextStyle(
                 fontFamily: 'OpenSans',
@@ -49,11 +55,74 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Transaction> transactions = [
-    Transaction(
-      title: 'New Shoes',
-      amount: Money(6999, Currency('EUR')),
+    Transaction.withTimestamp(
+      timestamp: DateTime.now(),
+      title: 'Groceries',
+      amount: Money(2000, Currency('EUR')),
+    ),
+    Transaction.withTimestamp(
+      timestamp: DateTime.now().subtract(Duration(days: 1)),
+      title: 'Groceries',
+      amount: Money(2000, Currency('EUR')),
+    ),
+    Transaction.withTimestamp(
+      timestamp: DateTime.now().subtract(Duration(days: 1)),
+      title: 'Launch with Family',
+      amount: Money(1000, Currency('EUR')),
+    ),
+    Transaction.withTimestamp(
+      timestamp: DateTime.now().subtract(Duration(days: 2)),
+      title: 'Household items:',
+      amount: Money(4000, Currency('EUR')),
+    ),
+    Transaction.withTimestamp(
+      timestamp: DateTime.now().subtract(Duration(days: 3)),
+      title: 'Breakfast',
+      amount: Money(500, Currency('EUR')),
+    ),
+    Transaction.withTimestamp(
+      timestamp: DateTime.now().subtract(Duration(days: 3)),
+      title: 'Launch',
+      amount: Money(1000, Currency('EUR')),
+    ),
+    Transaction.withTimestamp(
+      timestamp: DateTime.now().subtract(Duration(days: 3)),
+      title: 'Groceries',
+      amount: Money(3500, Currency('EUR')),
+    ),
+    Transaction.withTimestamp(
+      timestamp: DateTime.now().subtract(Duration(days: 4)),
+      title: 'Adidas sneakers',
+      amount: Money(6000, Currency('EUR')),
+    ),
+    Transaction.withTimestamp(
+      timestamp: DateTime.now().subtract(Duration(days: 5)),
+      title: 'Tank of diesel',
+      amount: Money(7000, Currency('EUR')),
+    ),
+    Transaction.withTimestamp(
+      timestamp: DateTime.now().subtract(Duration(days: 6)),
+      title: 'Weekly groceries',
+      amount: Money(8000, Currency('EUR')),
+    ),
+    Transaction.withTimestamp(
+      timestamp: DateTime.now().subtract(Duration(days: 7)),
+      title: 'Breakfast',
+      amount: Money(5050, Currency('EUR')),
+    ),
+    Transaction.withTimestamp(
+      timestamp: DateTime.now().subtract(Duration(days: 7)),
+      title: 'Launch',
+      amount: Money(6050, Currency('EUR')),
     ),
   ];
+
+  List<Transaction> _filterCurrentSevenDays() {
+    var cutOffTs = DateTime.now().toUtc().subtract(Duration(days: 7));
+    return this.transactions.where((tx) {
+      return tx.timestamp.isAfter(cutOffTs);
+    }).toList();
+  }
 
   void _newTransaction(Transaction tx) {
     setState(() {
@@ -88,13 +157,7 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                child: Text('chart'),
-              ),
-            ),
+            Chart(_filterCurrentSevenDays()),
             TransactionList(transactions),
           ],
         ),
