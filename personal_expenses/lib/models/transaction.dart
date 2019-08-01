@@ -34,7 +34,7 @@ class Transaction {
   }
 
   String get timestampText {
-    return DateFormat('EEE, d MMM y H:m:s').format(this.timestamp.toLocal());
+    return DateFormat('EEE, d MMM y HH:mm').format(this.timestamp.toLocal());
   }
 
   Transaction({@required this.title, @required this.amount})

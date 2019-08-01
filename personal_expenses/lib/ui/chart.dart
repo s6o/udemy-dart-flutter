@@ -16,7 +16,7 @@ class Chart extends StatelessWidget {
       if (results.containsKey(key)) {
         results[key].amount += tx.amount;
       } else {
-        var dayStart = DateFormat('y-MM-d 00:00:00').format(tx.timestamp);
+        var dayStart = DateFormat('y-MM-dd 00:00:00').format(tx.timestamp);
         var ts = DateTime.parse(dayStart);
         results[key] = Transaction.withTimestamp(
           timestamp: ts,
