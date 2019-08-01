@@ -55,62 +55,27 @@ class _TransactionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Row(
-        children: <Widget>[
-          _TxItemAmount(tx),
-          _TxItemTitleTimestamp(tx),
-        ],
-      ),
-    );
-  }
-}
-
-class _TxItemAmount extends StatelessWidget {
-  final Transaction tx;
-
-  _TxItemAmount(this.tx);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 15,
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).accentColor,
-          width: 2,
+      margin: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+      elevation: 3,
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 30,
+          child: Padding(
+            padding: EdgeInsets.all(5),
+            child: FittedBox(
+              child: Text(tx.amountText),
+            ),
+          ),
         ),
-      ),
-      padding: EdgeInsets.all(10),
-      child: Text(
-        tx.amountText,
-        style: Theme.of(context).textTheme.subhead,
-      ),
-    );
-  }
-}
-
-class _TxItemTitleTimestamp extends StatelessWidget {
-  final Transaction tx;
-
-  _TxItemTitleTimestamp(this.tx);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
+        title: Text(
           tx.title,
           style: Theme.of(context).textTheme.title,
         ),
-        Text(
+        subtitle: Text(
           tx.timestampText,
           style: Theme.of(context).textTheme.subtitle,
         ),
-      ],
+      ),
     );
   }
 }
