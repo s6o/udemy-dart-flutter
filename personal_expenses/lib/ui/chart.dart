@@ -12,7 +12,7 @@ class Chart extends StatelessWidget {
   List<Transaction> get groupTxPerDay {
     Map<String, Transaction> results = {};
     this.lastSevenDays.forEach((tx) {
-      var key = DateFormat('E, yMd').format(tx.timestamp);
+      var key = DateFormat('EE, yMd').format(tx.timestamp);
       if (results.containsKey(key)) {
         results[key].amount += tx.amount;
       } else {
