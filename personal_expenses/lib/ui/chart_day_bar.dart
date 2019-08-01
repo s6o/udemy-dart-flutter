@@ -12,9 +12,12 @@ class ChartDayBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        FittedBox(
-          child: Text(dayTotal.amountText,
-              style: Theme.of(context).textTheme.subtitle),
+        Container(
+          height: 15,
+          child: FittedBox(
+            child: Text(dayTotal.amountText,
+                style: Theme.of(context).textTheme.subtitle),
+          ),
         ),
         SizedBox(
           height: 4,
