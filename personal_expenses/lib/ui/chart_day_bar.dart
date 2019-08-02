@@ -47,8 +47,15 @@ class ChartDayBar extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 4),
-        Text(dayTotal.title.substring(0, 2)),
+        SizedBox(
+          height: 4,
+        ),
+        Container(
+          height: 15,
+          child: FittedBox(
+            child: Text(dayTotal.title.substring(0, 2)),
+          ),
+        ),
       ],
     );
   }

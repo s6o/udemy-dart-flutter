@@ -46,12 +46,13 @@ class Chart extends StatelessWidget {
       elevation: 7,
       margin: EdgeInsets.all(5),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.only(left: 5, right: 5, bottom: 15),
                 child: Text('Last Seven Days'),
               ),
             ],
@@ -59,15 +60,12 @@ class Chart extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: groupTxPerDay.map((tx) {
-              return Flexible(
-                fit: FlexFit.tight,
-                child: ChartDayBar(
-                    tx,
-                    maxSevenDaySpend.amount == 0
-                        ? 0.0
-                        : (tx.amount.amount.toDouble() /
-                            maxSevenDaySpend.amount.toDouble())),
-              );
+              return ChartDayBar(
+                  tx,
+                  maxSevenDaySpend.amount == 0
+                      ? 0.0
+                      : (tx.amount.amount.toDouble() /
+                          maxSevenDaySpend.amount.toDouble()));
             }).toList(),
           ),
         ],
