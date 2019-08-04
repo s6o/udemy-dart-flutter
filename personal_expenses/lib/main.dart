@@ -53,7 +53,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   final List<Transaction> transactions = [
     Transaction.withTimestamp(
       timestamp: DateTime.now(),
@@ -116,6 +116,25 @@ class _HomePageState extends State<HomePage> {
       amount: Money(6050, Currency('EUR')),
     ),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  //AppLifecycleState _notification;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    //setState(() { _notification = state; });
+  }
 
   List<Transaction> _filterCurrentSevenDays() {
     var cutOffTs = DateTime.now().toUtc().subtract(Duration(days: 7));
