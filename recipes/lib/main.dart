@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './ui/categories_screen.dart';
+
 void main() => runApp(RecipesApp());
 
 class RecipesApp extends StatelessWidget {
@@ -9,32 +11,25 @@ class RecipesApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Recipes',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.pink,
+        accentColor: Colors.amber,
+        canvasColor: Color.fromRGBO(255, 254, 229, 1),
+        fontFamily: 'Raleway',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              body1: TextStyle(
+                color: Color.fromRGBO(20, 51, 51, 1),
+              ),
+              body2: TextStyle(
+                color: Color.fromRGBO(20, 51, 51, 1),
+              ),
+              title: TextStyle(
+                fontSize: 20,
+                fontFamily: 'RobotoCondensed',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
       ),
-      home: _RecipesScreen(title: 'Recipes'),
-    );
-  }
-}
-
-class _RecipesScreen extends StatefulWidget {
-  _RecipesScreen({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _RecipesState createState() => _RecipesState();
-}
-
-class _RecipesState extends State<_RecipesScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Text('Recipes Screen'),
-      ),
+      home: CategoriesScreen(),
     );
   }
 }
