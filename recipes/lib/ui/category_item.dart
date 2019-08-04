@@ -1,22 +1,14 @@
 import 'package:flutter/material.dart';
 
-import './category_screen.dart';
+import '../models/category.dart';
 
 class CategoryItem extends StatelessWidget {
-  final String id;
-  final String title;
-  final Color color;
+  final Category category;
 
-  CategoryItem(this.id, this.title, this.color);
+  CategoryItem(this.category);
 
   void _selectCategory(BuildContext ctx) {
-    Navigator.of(ctx).push(
-      MaterialPageRoute(
-        builder: (_) {
-          return CategoryScreen(id, title);
-        },
-      ),
-    );
+    Navigator.of(ctx).pushNamed('/category', arguments: category);
   }
 
   @override
@@ -28,12 +20,12 @@ class CategoryItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(15),
         child: Text(
-          title,
+          category.title,
           style: Theme.of(context).textTheme.title,
         ),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [color.withOpacity(0.7), color],
+            colors: [category.color.withOpacity(0.7), category.color],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),

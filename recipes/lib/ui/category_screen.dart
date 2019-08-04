@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class CategoryScreen extends StatelessWidget {
-  final String id;
-  final String title;
+import '../models/category.dart';
 
-  CategoryScreen(this.id, this.title);
+class CategoryScreen extends StatelessWidget {
+  static const routePath = '/category';
 
   @override
   Widget build(BuildContext context) {
+    final routeCategory = ModalRoute.of(context).settings.arguments as Category;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Recipes: ${this.title}'),
+        title: Text('Recipes: ${routeCategory.title}'),
       ),
       body: Center(
         child: Text('Categories'),

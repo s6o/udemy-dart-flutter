@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recepies/ui/category_screen.dart';
 
 import './ui/categories_screen.dart';
 
@@ -29,7 +30,11 @@ class RecipesApp extends StatelessWidget {
               ),
             ),
       ),
-      home: CategoriesScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (ctx) => CategoriesScreen(),
+        CategoryScreen.routePath: (ctx) => CategoryScreen(),
+      },
     );
   }
 }
