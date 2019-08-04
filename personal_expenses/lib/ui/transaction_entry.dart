@@ -9,8 +9,10 @@ typedef EntryHandler = void Function(Transaction);
 
 class TransactionEntry extends StatefulWidget {
   final EntryHandler entryHandler;
+  final bool withClose;
 
-  TransactionEntry(this.entryHandler);
+  TransactionEntry(this.entryHandler) : withClose = true;
+  TransactionEntry.withoutClose(this.entryHandler) : withClose = false;
 
   @override
   _TransactionEntryState createState() => _TransactionEntryState();
@@ -108,7 +110,12 @@ class _TransactionEntryState extends State<TransactionEntry> {
     return Card(
       elevation: 5,
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.only(
+          top: 5,
+          left: 10,
+          right: 10,
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
@@ -160,15 +167,16 @@ class _TransactionEntryState extends State<TransactionEntry> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  FlatButton(
-                    child: Text('Close'),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
+                  if (this.widget.withClose)
+                    FlatButton(
+                      child: Text('Close'),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
                   RaisedButton(
                     child: Text('Add Transaction'),
                     onPressed: () {
                       _createTransaction();
-                      Navigator.of(context).pop();
+                      if (this.widget.withClose) Navigator.of(context).pop();
                     },
                   )
                 ],

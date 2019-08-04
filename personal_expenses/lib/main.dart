@@ -144,23 +144,65 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final AppBar appBar =
+        MediaQuery.of(context).orientation == Orientation.portrait
+            ? AppBar(
+                title: Text('Personal Expenses'),
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () => _showTransactionEntry(context),
+                  ),
+                ],
+              )
+            : AppBar(
+                title: Text('Personal Expenses'),
+              );
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Personal Expenses'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _showTransactionEntry(context),
+      appBar: appBar,
+      body: OrientationBuilder(
+        builder: (bctx, orientation) {
+          var remainHeight = MediaQuery.of(context).size.height -
+              appBar.preferredSize.height -
+              MediaQuery.of(context).padding.top;
+
+          if (orientation == Orientation.portrait) {
+            return _portaitBuilder(remainHeight);
+          } else {
+            return _landscapeBuilder(remainHeight);
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _portaitBuilder(double remainHeight) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Container(
+            height: remainHeight * 0.25,
+            child: Chart(_filterCurrentSevenDays()),
           ),
+          Container(
+              height: remainHeight * 0.75,
+              child: TransactionList(transactions)),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Chart(_filterCurrentSevenDays()),
-            TransactionList(transactions),
-          ],
-        ),
+    );
+  }
+
+  Widget _landscapeBuilder(double remainHeight) {
+    return Container(
+      height: remainHeight,
+      child: GridView.count(
+        crossAxisCount: 2,
+        children: <Widget>[
+          TransactionList(transactions),
+          TransactionEntry.withoutClose(_newTransaction),
+        ],
       ),
     );
   }
