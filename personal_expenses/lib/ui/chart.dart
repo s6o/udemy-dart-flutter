@@ -60,12 +60,15 @@ class Chart extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: groupTxPerDay.map((tx) {
-              return ChartDayBar(
-                  tx,
-                  maxSevenDaySpend.amount == 0
-                      ? 0.0
-                      : (tx.amount.amount.toDouble() /
-                          maxSevenDaySpend.amount.toDouble()));
+              return Flexible(
+                fit: FlexFit.tight,
+                child: ChartDayBar(
+                    tx,
+                    maxSevenDaySpend.amount == 0
+                        ? 0.0
+                        : (tx.amount.amount.toDouble() /
+                            maxSevenDaySpend.amount.toDouble())),
+              );
             }).toList(),
           ),
         ],
