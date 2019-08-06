@@ -41,4 +41,36 @@ class Recipe {
       @required this.isLactoseFree,
       @required this.isVegan,
       @required this.isVegetarian});
+
+  String get affordabilityText {
+    switch (this.affordability) {
+      case Affordability.Affordable:
+        return 'Affordable';
+        break;
+      case Affordability.Pricey:
+        return 'Pricey';
+        break;
+      case Affordability.Luxurious:
+        return 'Luxurious';
+        break;
+      default:
+        return 'Astronomical';
+    }
+  }
+
+  String get complexityText {
+    switch (this.complexity) {
+      case Complexity.Simple:
+        return 'Simple';
+        break;
+      case Complexity.Challenging:
+        return 'Challenging';
+        break;
+      case Complexity.Hard:
+        return 'Hard';
+        break;
+      default:
+        return 'Unknown';
+    }
+  }
 }

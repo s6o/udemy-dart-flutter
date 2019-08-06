@@ -4,6 +4,8 @@ import '../models/category.dart';
 import '../models/recipe.dart';
 import '../models/dummy_data.dart';
 
+import './widgets/recipe_item.dart';
+
 class CategoryScreen extends StatelessWidget {
   static const routePath = '/category';
 
@@ -21,7 +23,7 @@ class CategoryScreen extends StatelessWidget {
       body: Center(
         child: ListView.builder(
           itemBuilder: (ctx, index) {
-            return Text(filteredRecipes[index].title);
+            return RecipeItem(filteredRecipes[index]);
           },
           itemCount: filteredRecipes.length,
         ),

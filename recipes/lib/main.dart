@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recepies/ui/category_screen.dart';
 
 import './ui/categories_screen.dart';
+import './ui/recipe_screen.dart';
 
 void main() => runApp(RecipesApp());
 
@@ -34,6 +35,7 @@ class RecipesApp extends StatelessWidget {
       routes: {
         '/': (ctx) => CategoriesScreen(),
         CategoryScreen.routePath: (ctx) => CategoryScreen(),
+        RecipeScreen.routePath: (ctx) => RecipeScreen(),
       },
     );
   }
