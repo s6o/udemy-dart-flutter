@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../routes.dart';
 import '../../models/recipe.dart';
-import '../recipe_screen.dart';
 
 class RecipeItem extends StatelessWidget {
   final Recipe recipe;
@@ -9,8 +9,7 @@ class RecipeItem extends StatelessWidget {
   RecipeItem(this.recipe);
 
   void _selectRecipe(BuildContext context) {
-    Navigator.of(context)
-        .pushNamed(RecipeScreen.routePath, arguments: this.recipe);
+    Navigator.of(context).pushNamed(Routes.recipe, arguments: this.recipe);
   }
 
   @override

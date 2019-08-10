@@ -7,8 +7,6 @@ import '../models/dummy_data.dart';
 import './widgets/recipe_item.dart';
 
 class CategoryScreen extends StatelessWidget {
-  static const routePath = '/category';
-
   @override
   Widget build(BuildContext context) {
     final routeCategory = ModalRoute.of(context).settings.arguments as Category;
