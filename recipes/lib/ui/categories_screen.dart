@@ -7,12 +7,7 @@ import './widgets/category_item.dart';
 class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Recipes: Categories'),
-      ),
-      body: _categoryGrid(),
-    );
+    return _categoryGrid();
   }
 
   Widget _categoryGrid() {
