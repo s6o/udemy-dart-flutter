@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../models/category.dart';
 import '../models/recipe.dart';
-import '../models/dummy_data.dart';
 
 import './widgets/recipe_item.dart';
 
 class CategoryScreen extends StatelessWidget {
+  final List<Recipe> recipes;
+
+  CategoryScreen(this.recipes);
+
   @override
   Widget build(BuildContext context) {
     final routeCategory = ModalRoute.of(context).settings.arguments as Category;
-    final filteredRecipes = DUMMY_RECIPES
+    final filteredRecipes = recipes
         .where((Recipe r) => r.categories.contains(routeCategory.id))
         .toList();
 

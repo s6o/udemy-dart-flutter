@@ -189,8 +189,8 @@ const DUMMY_RECIPES = const [
   Recipe(
     id: 'm5',
     categories: [
-      'c2'
-          'c5',
+      'c2',
+      'c5',
       'c10',
     ],
     title: 'Salad with Smoked Salmon',
