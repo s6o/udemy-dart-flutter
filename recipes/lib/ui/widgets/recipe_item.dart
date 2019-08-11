@@ -3,13 +3,33 @@ import 'package:flutter/material.dart';
 import '../../routes.dart';
 import '../../models/recipe.dart';
 
-class RecipeItem extends StatelessWidget {
+class RecipeItem extends StatefulWidget {
   final Recipe recipe;
+  final bool isFavorite;
+  final Function toggle;
 
-  RecipeItem(this.recipe);
+  RecipeItem(
+    this.recipe, {
+    this.isFavorite = false,
+    @required this.toggle,
+  });
+
+  @override
+  _RecipeItemState createState() => _RecipeItemState();
+}
+
+class _RecipeItemState extends State<RecipeItem> {
+  bool _isFavorite;
 
   void _selectRecipe(BuildContext context) {
-    Navigator.of(context).pushNamed(Routes.recipe, arguments: this.recipe);
+    Navigator.of(context)
+        .pushNamed(Routes.recipe, arguments: this.widget.recipe);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _isFavorite = widget.isFavorite;
   }
 
   @override
@@ -32,7 +52,7 @@ class RecipeItem extends StatelessWidget {
                     topRight: Radius.circular(15),
                   ),
                   child: Image.network(
-                    this.recipe.imageUrl,
+                    this.widget.recipe.imageUrl,
                     height: 250,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -49,7 +69,7 @@ class RecipeItem extends StatelessWidget {
                       vertical: 5,
                     ),
                     child: Text(
-                      this.recipe.title,
+                      this.widget.recipe.title,
                       style: TextStyle(
                         fontSize: 26,
                         color: Colors.white,
@@ -72,8 +92,10 @@ class RecipeItem extends StatelessWidget {
                       SizedBox(
                         width: 6,
                       ),
-                      Text('${this.recipe.duration.inMinutes} minute' +
-                          (this.recipe.duration.inMinutes > 1 ? 's' : '')),
+                      Text('${this.widget.recipe.duration.inMinutes} minute' +
+                          (this.widget.recipe.duration.inMinutes > 1
+                              ? 's'
+                              : '')),
                     ],
                   ),
                   Row(
@@ -82,7 +104,7 @@ class RecipeItem extends StatelessWidget {
                       SizedBox(
                         width: 6,
                       ),
-                      Text(this.recipe.complexityText),
+                      Text(this.widget.recipe.complexityText),
                     ],
                   ),
                   Row(
@@ -91,8 +113,22 @@ class RecipeItem extends StatelessWidget {
                       SizedBox(
                         width: 6,
                       ),
-                      Text(this.recipe.affordabilityText),
+                      Text(this.widget.recipe.affordabilityText),
                     ],
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _isFavorite = !_isFavorite;
+                      });
+                      widget.toggle(widget.recipe);
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        if (widget.isFavorite) Icon(Icons.star),
+                        if (!widget.isFavorite) Icon(Icons.star_border),
+                      ],
+                    ),
                   ),
                 ],
               ),

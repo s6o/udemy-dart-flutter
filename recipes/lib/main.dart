@@ -20,6 +20,7 @@ class RecipesApp extends StatefulWidget {
 class _RecipesAppState extends State<RecipesApp> {
   List<Category> _categories = DUMMY_CATEGORIES;
   List<Recipe> _recipes = DUMMY_RECIPES;
+  Set<Recipe> _favorites = Set();
   Filter _filter;
 
   @override
@@ -55,6 +56,18 @@ class _RecipesAppState extends State<RecipesApp> {
     });
   }
 
+  void _toggleFavorite(Recipe r) {
+    if (_favorites.contains(r)) {
+      setState(() {
+        _favorites.remove(r);
+      });
+    } else {
+      setState(() {
+        _favorites.add(r);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -81,8 +94,13 @@ class _RecipesAppState extends State<RecipesApp> {
       ),
       initialRoute: '/',
       routes: {
-        Routes.root: (ctx) => TabsScreen(_filteredCategories),
-        Routes.category: (ctx) => CategoryScreen(_filteredRecipes),
+        Routes.root: (ctx) =>
+            TabsScreen(_filteredCategories, _favorites, _toggleFavorite),
+        Routes.category: (ctx) => CategoryScreen(
+              recipes: _filteredRecipes,
+              favorites: _favorites,
+              toggleFavorites: _toggleFavorite,
+            ),
         Routes.recipe: (ctx) => RecipeScreen(),
         Routes.filters: (ctx) => FiltersScreen(_filterUpdater, _filter),
       },
