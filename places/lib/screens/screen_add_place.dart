@@ -1,5 +1,9 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/great_places.dart';
 import '../widgets/image_input.dart';
 
 class ScreenAddPlace extends StatefulWidget {
@@ -9,6 +13,13 @@ class ScreenAddPlace extends StatefulWidget {
 
 class _ScreenAddPlaceState extends State<ScreenAddPlace> {
   TextEditingController _titleController;
+  File _pickedImage;
+
+  @override
+  void initState() {
+    super.initState();
+    _titleController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +48,7 @@ class _ScreenAddPlaceState extends State<ScreenAddPlace> {
                   SizedBox(
                     height: 10,
                   ),
-                  ImageInput(),
+                  ImageInput(_storePickedImage),
                 ],
               ),
             ),
@@ -46,11 +57,27 @@ class _ScreenAddPlaceState extends State<ScreenAddPlace> {
         RaisedButton.icon(
           icon: Icon(Icons.add),
           label: Text('Add Place'),
-          onPressed: () {},
+          onPressed: _savePlace,
           elevation: 0,
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
       ],
     );
+  }
+
+  void _storePickedImage(File image) {
+    setState(() {
+      _pickedImage = image;
+    });
+  }
+
+  void _savePlace() {
+    if (_titleController.text.isEmpty || _pickedImage == null) {
+      return;
+    }
+
+    Provider.of<GreatPlaces>(context, listen: false)
+        .addPlace(_titleController.text, _pickedImage);
+    Navigator.of(context).pop();
   }
 }

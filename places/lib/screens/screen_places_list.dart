@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../routes.dart';
+import '../providers/great_places.dart';
 
 class ScreenPlacesList extends StatelessWidget {
   @override
@@ -17,8 +19,20 @@ class ScreenPlacesList extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: CircularProgressIndicator(),
+      body: Consumer<GreatPlaces>(
+        builder: (ctx, GreatPlaces places, _) {
+          return ListView.builder(
+            itemCount: places.items.length,
+            itemBuilder: (ctx, index) {
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: FileImage(places.items[index].image),
+                ),
+                title: Text(places.items[index].title),
+              );
+            },
+          );
+        },
       ),
     );
   }
