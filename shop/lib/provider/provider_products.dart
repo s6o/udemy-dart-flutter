@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
+
 import 'package:money/money.dart';
+import '../model/product.dart';
 
-import './product.dart';
-
-List<Product> products() {
-  return [
+class ProviderProducts with ChangeNotifier {
+  List<Product> _items = [
     Product(
       id: 'p1',
       title: 'Red Shirt',
@@ -37,4 +38,8 @@ List<Product> products() {
           'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
     ),
   ];
+
+  List<Product> get items {
+    return [..._items];
+  }
 }
