@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/great_places.dart';
 import '../widgets/image_input.dart';
+import '../widgets/location_input.dart';
 
 class ScreenAddPlace extends StatefulWidget {
   @override
@@ -49,6 +50,10 @@ class _ScreenAddPlaceState extends State<ScreenAddPlace> {
                     height: 10,
                   ),
                   ImageInput(_storePickedImage),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  LocationInput(),
                 ],
               ),
             ),
