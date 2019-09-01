@@ -19,20 +19,26 @@ class ScreenPlacesList extends StatelessWidget {
           ),
         ],
       ),
-      body: Consumer<GreatPlaces>(
-        builder: (ctx, GreatPlaces places, _) {
-          return ListView.builder(
-            itemCount: places.items.length,
-            itemBuilder: (ctx, index) {
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: FileImage(places.items[index].image),
-                ),
-                title: Text(places.items[index].title),
-              );
-            },
-          );
-        },
+      body: FutureBuilder(
+        future: Provider.of<GreatPlaces>(context, listen: false).loadPlaces(),
+        builder: (ctx, snapshot) => snapshot.connectionState ==
+                ConnectionState.waiting
+            ? Center(child: CircularProgressIndicator())
+            : Consumer<GreatPlaces>(
+                builder: (ctx, GreatPlaces places, _) {
+                  return ListView.builder(
+                    itemCount: places.items.length,
+                    itemBuilder: (ctx, index) {
+                      return ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage: FileImage(places.items[index].image),
+                        ),
+                        title: Text(places.items[index].title),
+                      );
+                    },
+                  );
+                },
+              ),
       ),
     );
   }
